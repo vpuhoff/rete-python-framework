@@ -1,0 +1,1 @@
+var numSocket = new Rete.Socket('Number value');
