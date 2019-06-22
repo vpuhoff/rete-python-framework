@@ -3,7 +3,7 @@ var datasourceSocket = new Rete.Socket("DataSource");
 
 class TextControl extends Rete.Control {
 
-    constructor(emitter, key, readonly, type = 'text') {
+    constructor(emitter, key, type = 'text') {
         super();
         this.emitter = emitter;
         this.key = key;
@@ -196,7 +196,7 @@ class PipeComponent extends Rete.Component {
     builder(node) {
         var output = new Rete.Output('out', "Output", pipeSocket);
         var ctrl = new TextControl(this.editor, 'name', false, 'Name');
-        var input = new Rete.Input('in', "Input", pipeSocket,true);
+        var input = new Rete.Input('in', "Input", pipeSocket, true);
         return node.addControl(ctrl).addOutput(output).addInput(input);
     }
 }
@@ -208,12 +208,12 @@ class RedisComponent extends Rete.Component {
     }
 
     builder(node) {
-        node.addOutput(new Rete.Output('out', "Connection", pipeSocket)) ;
+        node.addOutput(new Rete.Output('out', "Connection", pipeSocket));
 
-        node.addControl(new TextControl(this.editor, 'host', false, 'text')) ;
-        node.addControl(new TextControl(this.editor, 'port', false, 'number')) ;
-        node.addControl(new TextControl(this.editor, 'db', false, 'number')) ;
-        node.addControl(new TextControl(this.editor, 'credential', false, 'text')) ;
+        node.addControl(new TextControl(this.editor, 'host', false, 'text'));
+        node.addControl(new TextControl(this.editor, 'port', false, 'number'));
+        node.addControl(new TextControl(this.editor, 'db', false, 'number'));
+        node.addControl(new TextControl(this.editor, 'credential', false, 'text'));
 
         return node;
     }
@@ -225,11 +225,11 @@ class QueueComponent extends Rete.Component {
     }
 
     builder(node) {
-        node.addInput(new Rete.Input('input', "Source", pipeSocket)) ;
+        node.addInput(new Rete.Input('input', "Source", pipeSocket));
 
-        node.addControl(new TextControl(this.editor, 'queue', false, 'text')) ;
+        node.addControl(new TextControl(this.editor, 'queue', false, 'text'));
 
-        node.addOutput(new Rete.Output('out', "Events", pipeSocket)) ;
+        node.addOutput(new Rete.Output('out', "Events", pipeSocket));
         return node;
     }
 }

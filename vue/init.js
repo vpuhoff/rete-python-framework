@@ -1,6 +1,41 @@
 (async() => {
+    var initialData = () => ({ id: 'demo@0.1.0', nodes: {} });
+    if (localStorage.getItem("sus")) {
+        var modules = JSON.parse(localStorage.getItem("sus"))
+    } else {
+        var modules = {
+            ...modulesData
+        }
+    }
+    var currentModule = {};
+
+    function addModule() {
+        result = prompt("Input module name", "");
+        if (result) {
+            modules[result] = { data: initialData() }
+        }
+    }
+
+    function save() {
+        localStorage.setItem("sus", JSON.stringify(modules))
+    }
+
+    async function openModule(name) {
+        currentModule.data = editor.toJSON();
+
+        currentModule = modules[name];
+        await editor.fromJSON(currentModule.data);
+    }
+
+    alight('#modules', { modules, addModule, openModule, save });
+
+
     var container = document.querySelector('#rete');
-    var components = [new NumComponent(), new AddComponent()];
+    var components = [
+        new NumComponent(),
+        new AddComponent(),
+        new TestComponent()
+    ];
 
     var editor = new Rete.NodeEditor('demo@0.1.0', container);
     editor.use(ConnectionPlugin.default);
@@ -10,6 +45,7 @@
     editor.use(CommentPlugin.default);
     editor.use(HistoryPlugin);
     editor.use(ConnectionMasteryPlugin.default);
+    editor.use(ModulePlugin, { engine, modules });
 
     var engine = new Rete.Engine('demo@0.1.0');
 
@@ -17,22 +53,6 @@
         editor.register(c);
         engine.register(c);
     });
-
-    var n1 = await components[0].createNode({ num: 2 });
-    var n2 = await components[0].createNode({ num: 0 });
-    var add = await components[1].createNode();
-
-    n1.position = [80, 200];
-    n2.position = [80, 400];
-    add.position = [500, 240];
-
-
-    editor.addNode(n1);
-    editor.addNode(n2);
-    editor.addNode(add);
-
-    editor.connect(n1.outputs.get('num'), add.inputs.get('num1'));
-    editor.connect(n2.outputs.get('num'), add.inputs.get('num2'));
 
 
     editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async() => {

@@ -10,3 +10,15 @@ class NumControl extends Rete.Control {
         this.vueContext.value = val;
     }
 }
+
+class TextControl extends Rete.Control {
+    constructor(emitter, key) {
+        super(key);
+        this.component = VueTextControl;
+        this.props = { emitter, ikey: key };
+    }
+    setValue(val) {
+        this.vueContext.value = val;
+    }
+
+}

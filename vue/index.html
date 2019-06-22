@@ -9,6 +9,17 @@
 
 <body>
     <div id="rete"></div>
+    <div al-app id="modules" class="view ivu-card ivu-card-bordered">
+        <div class="module" al-repeat="(key, val) in modules" @click="openModule(key)" class="ivu-radio-group ivu-radio-group-default ivu-radio-default ivu-radio-group-vertical">
+            {{key}}
+        </div>
+        <button @click="addModule()">
+            Add
+        </button>
+        <button @click="save()">
+            Save
+        </button>
+    </div>
     <script src='https://cdn.jsdelivr.net/npm/rete/build/rete.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/rete-vue-render-plugin@0.4/build/vue-render-plugin.min.js'></script>
@@ -21,11 +32,14 @@
     <script src='https://cdn.jsdelivr.net/npm/rete-history-plugin@0.1.0/build/history-plugin.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/rete-connection-mastery-plugin@0.1.0/build/connection-mastery-plugin.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/rete-module-plugin@0.1.3/build/module-plugin.min.js"></script>
+    <script src="./data.js"></script>
     <script src="./sockets.js"></script>
     <script src="./control-templates.js"></script>
     <script src="./controls.js"></script>
     <script src="./components-base.js"></script>
+    <script src="./components-modules.js"></script>
     <script src="./init.js"></script>
+
 </body>
 
 </html>
