@@ -29,6 +29,7 @@
         currentModule.data = editor.toJSON();
         localStorage.setItem("sus", JSON.stringify(modules))
         send('./workflow/tester', { "Modules": modules }, console.log)
+        editor.trigger('process');
     }
 
     function remove() {
@@ -92,6 +93,8 @@
 
 
     editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async() => {
+
+        if (editor.silent) return;
         console.log('process');
         await engine.abort();
         await engine.process(editor.toJSON());

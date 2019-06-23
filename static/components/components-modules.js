@@ -38,6 +38,8 @@ class ModuleComponent extends Rete.Component {
 
     change(node, item) {
         node.data.module = item;
+        this.updateModuleSockets(node);
+        node._alight.scan();
         this.editor.trigger('process');
     }
 }
