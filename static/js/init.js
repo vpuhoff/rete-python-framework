@@ -28,7 +28,19 @@
     function save() {
         currentModule.data = editor.toJSON();
         localStorage.setItem("sus", JSON.stringify(modules))
-        send('./save', modules, console.log)
+        send('./workflow/tester', { "Modules": modules }, console.log)
+    }
+
+    function load(url, callback) {
+        fetch(url, {
+                method: "get",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json())
+            .then(data => { callback(data); })
+
     }
 
 
@@ -98,7 +110,13 @@
         await engine.abort();
         await engine.process(editor.toJSON());
     });
-    openModule(Object.keys(modules)[0])
+
+    function loadmodules(data) {
+        modules = data
+        openModule(Object.keys(modules)[0])
+    }
+    //openModule(Object.keys(modules)[0])
+    load('./workflow/tester', loadmodules);
     editor.view.resize();
     AreaPlugin.zoomAt(editor);
     editor.trigger('process');

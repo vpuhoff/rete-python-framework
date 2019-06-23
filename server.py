@@ -1,42 +1,40 @@
 import uvicorn
-from starlette.applications import Starlette
-from starlette.templating import Jinja2Templates
+from fastapi import FastAPI
+from pydantic import BaseModel
+app = FastAPI()
 from starlette.staticfiles import StaticFiles
-from starlette.responses import JSONResponse
-from starlette.responses import HTMLResponse
 from starlette.responses import PlainTextResponse
-from starlette.routing import Mount, Route, Router
-from starlette.endpoints import HTTPEndpoint
-from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import FileResponse
+from starlette.responses import HTMLResponse
+import openid.store.filestore
+import os 
 
-templates = Jinja2Templates(directory='templates')
+import pickledb
+db = pickledb.load('local.db', True)
 
-app = Starlette(debug=True)
+@app.get("/")
+def read_root():
+    with open('index.html','r') as f:
+        return HTMLResponse(f.read())
 
-app = Router([
-    Mount('/static', StaticFiles(directory='static'), name='static')
-])
+@app.get("/static/{folder}/{filename}")
+def static(folder, filename):
+    resource =  os.path.join(os.path.join('static',folder),filename)
+    return FileResponse(resource)
+class Item(BaseModel):
+    Modules: dict
 
+@app.post("/workflow/{item_id}")
+def update_workflow(item_id: str, data: Item):
+    print(data.Modules)
+    db['workflow.'+item_id]=data.Modules
+    return {"status": "ok"}
 
+@app.get("/workflow/{item_id}")
+def get_workflow(item_id: str):
+    data = db['workflow.'+item_id]
+    return data
 
-
-@app.route("/save",methods=["POST"])
-class Save(HTTPEndpoint):
-    async def app(scope, receive, send):
-        assert scope['type'] == 'http'
-        request = Request(scope, receive)
-        body = b''
-        async for chunk in request.stream():
-            body += chunk
-        response = Response(body, media_type='text/plain')
-        print(body.decode())
-        await response(scope, receive, send)
-@app.route("/")
-class Homepage(HTTPEndpoint):
-    async def get(self, request):
-        with open('index.html','r') as f:
-            return HTMLResponse(f.read())
 
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=8000,reload=True)
