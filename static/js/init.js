@@ -40,8 +40,8 @@
             ...modulesData
         }
     }
-
-    alight('#modules', { modules, addModule, openModule, save, remove });
+    alight('#app');
+    alight('#modules', { modules, addModule, openModule, save, remove, currentmodulename });
 
 
     var container = document.querySelector('#rete');
@@ -53,7 +53,8 @@
         new RedisComponent(),
         new QueueComponent(),
         new ElasticComponent(),
-        new FilterComponent()
+        new FilterComponent(),
+        new CloneComponent()
     ];
 
     var editor = new Rete.NodeEditor('demo@0.1.0', container);
@@ -79,7 +80,7 @@
         await engine.abort();
         await engine.process(editor.toJSON());
     });
-    openModule("index.rete")
+    openModule(Object.keys(modules)[0])
     editor.view.resize();
     AreaPlugin.zoomAt(editor);
     editor.trigger('process');
