@@ -52,9 +52,11 @@ class PipeComponent extends Rete.Component {
     }
 
     builder(node) {
-        var output = new Rete.Output('out', "Output", pipeSocket);
-        var ctrl = new TextControl(this.editor, 'name', false, 'Name');
-        var input = new Rete.Input('in', "Input", pipeSocket, true);
-        return node.addControl(ctrl).addOutput(output).addInput(input);
+        node.addOutput(new Rete.Output('out', "Output", pipeSocket));
+        node.addControl(new TextControl(this.editor, 'name', false, 'Name'));
+        node.addControl(new TextControl(this.editor, 'workers', false, 'Workers'));
+        node.addControl(new TextControl(this.editor, 'filter', false, 'FilterTemplate'));
+        node.addInput(new Rete.Input('in', "Input", pipeSocket, true));
+        return node;
     }
 }

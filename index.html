@@ -13,21 +13,21 @@
 <body>
 
     <div id="rete"></div>
-    <nav al-app id="modules" class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav al-app id="modules" class="navbar navbar-expand-lg navbar-light bg-light nav-fill">
         <a class="navbar-brand" href="#">Editor</a>
 
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="nav  nav-fill" id="navbarNavAltMarkup">
             <div class="navbar-nav">
                 <div class="module nav-item nav-link active" al-repeat="(key, val) in modules" @click="openModule(key)" class="">
                     {{key}}
                 </div>
-                <button class="btn btn-primary" @click="addModule()">
+                <button class="btn btn-primary nav-item rounded-pill" @click="addModule()">
                     Add
                 </button>
-                <button class="btn btn-warning" @click="remove()">
+                <button class="btn btn-warning nav-item rounded-pill" @click="remove()">
                     Remove
                 </button>
-                <button class="btn btn-success" @click="save()">
+                <button class="btn btn-success nav-item rounded-pill" @click="save()">
                     Save
                 </button>
             </div>

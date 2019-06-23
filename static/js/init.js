@@ -10,9 +10,25 @@
         }
     }
 
+    function send(url, data, callback) {
+        fetch(url, {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                //make sure to serialize your JSON body
+                body: JSON.stringify(data)
+            })
+            .then((response) => {
+                callback(response);
+            });
+    }
+
     function save() {
         currentModule.data = editor.toJSON();
         localStorage.setItem("sus", JSON.stringify(modules))
+        send('./save', modules, console.log)
     }
 
 
@@ -54,7 +70,9 @@
         new QueueComponent(),
         new ElasticComponent(),
         new FilterComponent(),
-        new CloneComponent()
+        new CloneComponent(),
+        new ChangeFieldComponent(),
+        new SyslogComponent()
     ];
 
     var editor = new Rete.NodeEditor('demo@0.1.0', container);

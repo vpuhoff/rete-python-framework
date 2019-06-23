@@ -29,3 +29,19 @@ class CloneComponent extends Rete.Component {
 
     worker(node, inputs, outputs) {}
 }
+
+class ChangeFieldComponent extends Rete.Component {
+    constructor() {
+        super("ChangeField");
+    }
+
+    builder(node) {
+        node.addOutput(new Rete.Output('out', "Output", pipeSocket));
+        node.addInput(new Rete.Input('input', "Input", pipeSocket, true));
+        node.addControl(new TextControl(this.editor, 'Field'));
+        node.addControl(new TextControl(this.editor, 'Value'));
+        return node;
+    }
+
+    worker(node, inputs, outputs) {}
+}
