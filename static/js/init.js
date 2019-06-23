@@ -1,12 +1,6 @@
 (async() => {
     var initialData = () => ({ id: 'demo@0.1.0', nodes: {} });
-    if (localStorage.getItem("sus")) {
-        var modules = JSON.parse(localStorage.getItem("sus"))
-    } else {
-        var modules = {
-            ...modulesData
-        }
-    }
+
     var currentModule = {};
 
     function addModule() {
@@ -17,17 +11,37 @@
     }
 
     function save() {
+        currentModule.data = editor.toJSON();
         localStorage.setItem("sus", JSON.stringify(modules))
     }
 
-    async function openModule(name) {
-        currentModule.data = editor.toJSON();
 
+    function remove() {
+        if (Object.keys(modules).length >= 2) {
+            delete modules[currentmodulename]
+            openModule(Object.keys(modules)[0])
+        }
+    }
+
+    var currentmodulename = "";
+    async function openModule(name) {
+        if (currentModule.data) {
+            currentModule.data = editor.toJSON();
+        }
         currentModule = modules[name];
+        currentmodulename = name
         await editor.fromJSON(currentModule.data);
     }
 
-    alight('#modules', { modules, addModule, openModule, save });
+    if (localStorage.getItem("sus")) {
+        var modules = JSON.parse(localStorage.getItem("sus"))
+    } else {
+        var modules = {
+            ...modulesData
+        }
+    }
+
+    alight('#modules', { modules, addModule, openModule, save, remove });
 
 
     var container = document.querySelector('#rete');
@@ -65,7 +79,7 @@
         await engine.abort();
         await engine.process(editor.toJSON());
     });
-
+    openModule("index.rete")
     editor.view.resize();
     AreaPlugin.zoomAt(editor);
     editor.trigger('process');

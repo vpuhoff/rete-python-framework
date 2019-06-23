@@ -3,23 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Rete.js (dataflow, node editor)</title>
-    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Editor</title>
+    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
+
     <div id="rete"></div>
-    <div al-app id="modules" class="view ivu-card ivu-card-bordered">
-        <div class="module" al-repeat="(key, val) in modules" @click="openModule(key)" class="ivu-radio-group ivu-radio-group-default ivu-radio-default ivu-radio-group-vertical">
+    <div al-app id="modules" class="  ">
+        <div class="module" al-repeat="(key, val) in modules" @click="openModule(key)" class="">
             {{key}}
         </div>
         <button @click="addModule()">
             Add
         </button>
+        <button @click="remove()">
+            Remove
+        </button>
         <button @click="save()">
             Save
         </button>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src='https://cdn.jsdelivr.net/npm/rete/build/rete.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/rete-vue-render-plugin@0.4/build/vue-render-plugin.min.js'></script>
@@ -32,16 +42,17 @@
     <script src='https://cdn.jsdelivr.net/npm/rete-history-plugin@0.1.0/build/history-plugin.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/rete-connection-mastery-plugin@0.1.0/build/connection-mastery-plugin.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/rete-module-plugin@0.1.3/build/module-plugin.min.js"></script>
-    <script src="./data.js"></script>
-    <script src="./sockets.js"></script>
-    <script src="./control-templates.js"></script>
-    <script src="./controls.js"></script>
-    <script src="./components-base.js"></script>
-    <script src="./components-modules.js"></script>
-    <script src="./components-connectors.js"></script>
-    <script src="./components-logstash.js"></script>
-    <script src="./init.js"></script>
 
+    <script src="./static/components/sockets.js"></script>
+    <script src="./static/components/control-templates.js"></script>
+    <script src="./static/components/controls.js"></script>
+    <script src="./static/components/components-base.js"></script>
+    <script src="./static/components/components-modules.js"></script>
+    <script src="./static/components/components-connectors.js"></script>
+    <script src="./static/components/components-logstash.js"></script>
+
+    <script src="./static/js/data.js"></script>
+    <script src="./static/js/init.js"></script>
 </body>
 
 </html>
