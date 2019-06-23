@@ -32,9 +32,14 @@
 
     var container = document.querySelector('#rete');
     var components = [
-        new NumComponent(),
-        new AddComponent(),
-        new TestComponent()
+        new InputComponent(),
+        new OutputComponent(),
+        new ModuleComponent(),
+        new PipeComponent(),
+        new RedisComponent(),
+        new QueueComponent(),
+        new ElasticComponent(),
+        new FilterComponent()
     ];
 
     var editor = new Rete.NodeEditor('demo@0.1.0', container);

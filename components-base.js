@@ -44,3 +44,17 @@ class AddComponent extends Rete.Component {
         outputs['num'] = sum;
     }
 }
+
+class PipeComponent extends Rete.Component {
+
+    constructor() {
+        super("Pipe");
+    }
+
+    builder(node) {
+        var output = new Rete.Output('out', "Output", pipeSocket);
+        var ctrl = new TextControl(this.editor, 'name', false, 'Name');
+        var input = new Rete.Input('in', "Input", pipeSocket, true);
+        return node.addControl(ctrl).addOutput(output).addInput(input);
+    }
+}
