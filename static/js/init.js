@@ -31,19 +31,6 @@
         send('./workflow/tester', { "Modules": modules }, console.log)
     }
 
-    function load(url, callback) {
-        fetch(url, {
-                method: "get",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => response.json())
-            .then(data => { callback(data); })
-
-    }
-
-
     function remove() {
         if (Object.keys(modules).length >= 2) {
             delete modules[currentmodulename]
@@ -68,8 +55,7 @@
             ...modulesData
         }
     }
-    alight('#app');
-    alight('#modules', { modules, addModule, openModule, save, remove, currentmodulename });
+
 
 
     var container = document.querySelector('#rete');
@@ -111,12 +97,18 @@
         await engine.process(editor.toJSON());
     });
 
-    function loadmodules(data) {
-        modules = data
-        openModule(Object.keys(modules)[0])
-    }
     //openModule(Object.keys(modules)[0])
-    load('./workflow/tester', loadmodules);
+    var request = new XMLHttpRequest();
+    request.open('GET', './workflow/tester', false); // `false` makes the request synchronous
+    request.send(null);
+
+    if (request.status === 200) {
+        modules = JSON.parse(request.responseText)
+        openModule(Object.keys(modules)[0]);
+        alight('#modules', { modules, addModule, openModule, save, remove, currentmodulename });
+
+    }
+
     editor.view.resize();
     AreaPlugin.zoomAt(editor);
     editor.trigger('process');
