@@ -35,6 +35,10 @@ def get_workflow(item_id: str):
     data = db['workflow.'+item_id]
     return data
 
+@app.get("/compile/{item_id}")
+def compile(item_id: str):
+    modules = db['workflow.'+item_id]
+    return {"status": "ok"}
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=8000,reload=True)
