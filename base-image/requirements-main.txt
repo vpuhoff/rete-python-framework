@@ -5,7 +5,11 @@ pydantic==0.29
 starlette==0.12.1
 uvicorn==0.8.2
 aiofiles
-flask-appbuilder
+six
+fire
+asn1crypto
+pycparser
+cffi
+cryptography
 keylocker
 tqdm
-redis

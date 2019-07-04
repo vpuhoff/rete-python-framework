@@ -1,0 +1,1 @@
+docker run -it  ems-gui:latest
