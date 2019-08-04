@@ -1,13 +1,14 @@
-kind: pipeline
-steps:
-- name: build base image
-  image: docker
-  username: ${DOCKER_USERNAME}
-  password: ${DOCKER_PASSWORD}
-  commands:
-  - docker build -t vpuhoff/rete-python-framework-base:latest .
-  dockerfile: ./Dockerfile
-  context: ./base-image
+# kind: pipeline
+pipeline:
+  steps:
+  - name: build base image
+    image: docker
+    username: ${DOCKER_USERNAME}
+    password: ${DOCKER_PASSWORD}
+    commands:
+    - docker build -t vpuhoff/rete-python-framework-base:latest .
+    dockerfile: ./Dockerfile
+    context: ./base-image
 
 # services:
 # - name: database
