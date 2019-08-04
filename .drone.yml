@@ -6,7 +6,7 @@ pipeline:
   #     - npm test
 
   publish-api-docker:
-    image: vpuhoff/rete-python-framework:0.1
+    #image: vpuhoff/rete-python-framework:0.1
     username: ${DOCKER_USERNAME}
     password: ${DOCKER_PASSWORD}
     # email: ${DOCKER_EMAIL}
