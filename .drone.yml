@@ -1,20 +1,37 @@
-pipeline:
+kind: pipeline
+steps:
+- name: build base image
+  image: docker
+  username: ${DOCKER_USERNAME}
+  password: ${DOCKER_PASSWORD}
+  commands:
+  - docker build -t vpuhoff/rete-python-framework-base:latest .
+  dockerfile: ./Dockerfile
+  context: ./base-image
+
+# services:
+# - name: database
+#   image: mysql
+#   ports:
+#   - 3306
+
+# pipeline:
   # run-tests:
   #   image: node:6.3.0
   #   commands:
   #     - cd ./api && npm i --quiet
   #     - npm test
 
-  publish-api-docker:
-    #image: vpuhoff/rete-python-framework:0.1
-    username: ${DOCKER_USERNAME}
-    password: ${DOCKER_PASSWORD}
-    # email: ${DOCKER_EMAIL}
-    repo: vpuhoff/rete-python-framework
-    tags:
-      - latest
-    dockerfile: ./Dockerfile
-    context: ./
+  # publish-api-docker:
+  #   image: vpuhoff/rete-python-framework:0.1
+  #   username: ${DOCKER_USERNAME}
+  #   password: ${DOCKER_PASSWORD}
+  #   # email: ${DOCKER_EMAIL}
+  #   repo: vpuhoff/rete-python-framework
+  #   tags:
+  #     - latest
+  #   dockerfile: ./Dockerfile
+  #   context: ./
 
   # slack-notification:
   #   image: plugins/slack
