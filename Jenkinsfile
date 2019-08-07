@@ -16,7 +16,5 @@ pipeline {
                 sh "sh build-app.sh"
             }
         }
-
     }
-  }
 }
