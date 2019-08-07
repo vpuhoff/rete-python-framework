@@ -8,9 +8,14 @@ pipeline {
                 sh 'echo "OK"'
             }
         }
-        stage('Build') {
+        stage('Build base image') {
             steps {
                 sh "sh build-base.sh"
+            }
+        }
+        stage('Build app image') {
+            steps {
+                sh "sh build-app.sh"
             }
         }
 
