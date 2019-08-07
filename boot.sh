@@ -1,4 +1,4 @@
 #!/bin/sh
 source venv/bin/activate
 cd app
-exec python appserver.py
+exec python server.py
