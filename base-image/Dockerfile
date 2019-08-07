@@ -25,4 +25,4 @@ RUN apk add --no-cache --virtual .build-deps \
     && apk del --no-cache .build-deps
 
 
-LABEL version="0.0.2-base"
+LABEL version="0.0.3-base"
