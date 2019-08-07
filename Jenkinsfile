@@ -18,12 +18,12 @@ pipeline {
         }
         stage('Stop container') {
             steps {
-                sh "docker stop $(docker ps |grep ems-gui|cut -d ' ' -f 1)"
+                sh "docker stop \$(docker ps |grep ems-gui|cut -d ' ' -f 1)"
             }
         }
         stage('Remove container') {
             steps {
-                sh "docker rm $(docker ps -a |grep ems-gui|cut -d ' ' -f 1)"
+                sh "docker rm \$(docker ps -a |grep ems-gui|cut -d ' ' -f 1)"
             }
         }
         stage('Start container') {
